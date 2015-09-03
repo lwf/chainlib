@@ -1,6 +1,34 @@
-chainlib is a library of helper functions for writing utilities which gather and
-pass environment variables to other binaries using [chain loading](https://en.wikipedia.org/wiki/Chain_loading), a technique
-popularized by [DJB](http://cr.yp.to/).
+# chainlib
+
+chainlib is a library of helper functions for writing utilities which pass
+state to other binaries using [chain loading](https://en.wikipedia.org/wiki/Chain_loading), 
+a technique popularized by [DJB](http://cr.yp.to/).
+
+## Minimal example
+```go
+package main
+
+import (
+	"time"
+
+	"github.com/lwf/chainlib"
+)
+
+func realMain() (map[string]string, error) {
+	return map[string]string{
+		"time": time.Now().String(),
+	}, nil
+}
+
+func main() {
+	chainlib.Main("MYNAMESPACE", realMain)
+}
+```
+
+```shell
+# ./example /bin/sh -c 'echo $MYNAMESPACE_TIME'
+2015-09-03 23:53:11.382559551 +0200 CEST
+```
 
 ## License
 
