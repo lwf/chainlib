@@ -2,7 +2,7 @@ chainlib is a library of helper functions for writing utilities which gather and
 pass environment variables to other binaries using [chain loading](https://en.wikipedia.org/wiki/Chain_loading), a technique
 popularized by [DJB](http://cr.yp.to/).
 
-# License
+## License
 
 Copyright 2015 Torbjörn Norinder
 
