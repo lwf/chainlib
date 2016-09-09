@@ -3,13 +3,14 @@ package chainlib
 import (
 	"flag"
 	"fmt"
-	"log"
+	"os"
 	"strings"
 )
 
 func assert(err error) {
 	if err != nil {
-		log.Fatal(err)
+		fmt.Fprintln(os.Stderr, err)
+		os.Exit(1)
 	}
 }
 
