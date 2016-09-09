@@ -33,7 +33,11 @@ func Main(prefix string, f func() (map[string]string, error)) {
 		if upcase {
 			key = strings.ToUpper(key)
 		}
-		menv = append(menv, fmt.Sprintf("%s_%s=%s", rprefix, key, v))
+		envvar := fmt.Sprintf("%s=%s", key, v)
+		if rprefix != "" {
+			envvar = fmt.Sprintf("%s_%s", rprefix, key)
+		}
+		menv = append(menv, envvar)
 	}
 	assert(Exec(flag.Args(), menv))
 }
