@@ -27,17 +27,15 @@ func Main(prefix string, f func() (map[string]string, error)) {
 
 	env, err := f()
 	assert(err)
-	var menv []string
 	for k, v := range env {
 		key := SafeEnv(k)
 		if upcase {
 			key = strings.ToUpper(key)
 		}
-		envvar := fmt.Sprintf("%s=%s", key, v)
 		if rprefix != "" {
-			envvar = fmt.Sprintf("%s_%s", rprefix, key)
+			key = fmt.Sprintf("%s_%s", rprefix, key)
 		}
-		menv = append(menv, envvar)
+		env[key] = v
 	}
-	assert(Exec(flag.Args(), menv))
+	assert(Exec(flag.Args(), Environment(env)))
 }
