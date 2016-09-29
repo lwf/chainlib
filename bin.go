@@ -25,9 +25,10 @@ func Main(prefix string, f func() (map[string]string, error)) {
 	flag.BoolVar(&upcase, "upcase", true, "Upcase variables")
 	flag.Parse()
 
-	env, err := f()
+	vars, err := f()
 	assert(err)
-	for k, v := range env {
+	env := NewEnvironment()
+	for k, v := range vars {
 		key := SafeEnv(k)
 		if upcase {
 			key = strings.ToUpper(key)
@@ -37,5 +38,5 @@ func Main(prefix string, f func() (map[string]string, error)) {
 		}
 		env[key] = v
 	}
-	assert(Exec(flag.Args(), Environment(env)))
+	assert(Exec(flag.Args(), env))
 }
